@@ -1,0 +1,252 @@
+# Complaint Management System – Full Website
+
+Below are the complete files for a **Complaint Management System** built with **HTML, CSS, and JavaScript**.
+
+---
+
+## 📌 index.html
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Complaint Management System</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>📝 Complaint Management System</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#file">File Complaint</a>
+      <a href="#status">Complaint Status</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <h2>Register & Track Your Complaints Easily</h2>
+    <p>We ensure every complaint is resolved quickly and transparently.</p>
+    <button onclick="scrollToForm()">File Complaint</button>
+  </section>
+
+  <section id="file" class="form-section">
+    <h2>File a Complaint</h2>
+
+    <form id="complaintForm">
+      <label>Your Name</label>
+      <input type="text" id="name" required />
+
+      <label>Email</label>
+      <input type="email" id="email" required />
+
+      <label>Complaint Type</label>
+      <select id="type" required>
+        <option value="">-- Choose Type --</option>
+        <option value="Service Issue">Service Issue</option>
+        <option value="Billing Issue">Billing Issue</option>
+        <option value="Technical Issue">Technical Issue</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <label>Description</label>
+      <textarea id="description" rows="4" required></textarea>
+
+      <button type="submit">Submit Complaint</button>
+    </form>
+
+    <div id="success" class="success hidden">Complaint Submitted Successfully! Your Complaint ID: <span id="cid"></span></div>
+  </section>
+
+  <section id="status" class="status-section">
+    <h2>Check Complaint Status</h2>
+
+    <input type="text" id="checkID" placeholder="Enter Complaint ID" />
+    <button onclick="checkStatus()">Check Status</button>
+
+    <div id="statusResult" class="result"></div>
+  </section>
+
+  <section id="contact" class="contact-section">
+    <h2>Contact Us</h2>
+    <p>Email: support@cmsportal.com</p>
+    <p>Phone: +91 98765 43210</p>
+  </section>
+
+  <footer>
+    <p>© 2025 Complaint Management System. All Rights Reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
+```
+
+---
+
+## 📌 style.css
+
+```css
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+header {
+  background: #004d99;
+  padding: 20px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+  margin-left: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.hero {
+  background: url('https://images.unsplash.com/photo-1521791136064-7986c2920216') no-repeat center/cover;
+  padding: 120px 20px;
+  text-align: center;
+  color: white;
+}
+
+.hero button {
+  margin-top: 20px;
+  padding: 12px 25px;
+  background: #ff9800;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.form-section, .status-section, .contact-section {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+form {
+  width: 350px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+form input, form select, form textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+form button {
+  padding: 12px;
+  background: #004d99;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.success {
+  background: #4CAF50;
+  padding: 15px;
+  color: white;
+  margin-top: 20px;
+  border-radius: 5px;
+}
+
+.hidden {
+  display: none;
+}
+
+.result {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+footer {
+  background: #004d99;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 30px;
+}
+```
+
+---
+
+## 📌 script.js
+
+```javascript
+function scrollToForm() {
+  document.getElementById('file').scrollIntoView({ behavior: 'smooth' });
+}
+
+let complaints = {}; // store all complaints in memory
+
+const form = document.getElementById('complaintForm');
+const success = document.getElementById('success');
+const cidSpan = document.getElementById('cid');
+
+form.addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const id = 'CMP' + Math.floor(Math.random() * 100000);
+
+  complaints[id] = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    type: document.getElementById('type').value,
+    desc: document.getElementById('description').value,
+    status: 'Pending'
+  };
+
+  cidSpan.textContent = id;
+  success.classList.remove('hidden');
+
+  setTimeout(() => {
+    success.classList.add('hidden');
+    form.reset();
+  }, 4000);
+});
+
+function checkStatus() {
+  const id = document.getElementById('checkID').value;
+  const result = document.getElementById('statusResult');
+
+  if (complaints[id]) {
+    result.innerHTML = `Complaint ID: ${id} <br>Status: ${complaints[id].status}`;
+  } else {
+    result.innerHTML = 'Complaint not found!';
+  }
+}
+```
+
+---
+
+## ✅ Your Complaint Management System Website Is Ready!
+
+Would you like extra features?
+
+### 🔥 Available Add-ons:
+
+* Admin Login + Dashboard
+* Update Complaint Status
+* Firebase/Database Storage
+* Dark Mode UI
+* Download Complaint as PDF
+* Email Notification System
+
+Tell me what to add next!
